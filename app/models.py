@@ -245,3 +245,8 @@ class SocialAuth(object):
         google_profile.google_id = google_user["id"]
         google_profile.save()
         return True
+
+
+class PrelaunchContact(models.Model):
+    person_email = models.CharField(max_length=1024)
+    shop_email = models.CharField(max_length=1024)

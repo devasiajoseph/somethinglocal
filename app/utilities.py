@@ -25,6 +25,16 @@ def send_password_reset_email(email, key):
               fail_silently=False)
 
 
+def send_contact_email(email, contact_type):
+    email_subject = 'Prelaunch Contact ' + contact_type
+    email_body = 'Contact from ' + email + " Type: " + contact_type
+    send_mail(email_subject,
+              email_body,
+              settings.ADMIN_EMAIL,
+              [settings.EMAIL_HOST_USER],
+              fail_silently=False)
+
+
 def create_key(mixer, expiry):
     salt = sha.new(str(random.random())).hexdigest()[:10]
     key = sha.new(salt + mixer).hexdigest()

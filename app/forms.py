@@ -1,14 +1,14 @@
 from django import forms
 from django.conf import settings
-from app.utilities import reply_object
 from django.contrib.auth.models import User, check_password
 from django.contrib.auth import authenticate, login
 import requests
 import re
 from facebooksdk import Facebook
 from django.db.models import Q
-from app.models import UserProfile
-from app.utilities import create_key, send_password_reset_email
+from app.models import UserProfile, PrelaunchContact
+from app.utilities import reply_object, create_key, send_password_reset_email,\
+send_contact_email
 
 attrs_dict = {'class': 'input-xlarge'}
 
@@ -226,3 +226,29 @@ class PasswordResetForm(forms.Form):
         user.save()
         response["code"] = settings.APP_CODE["CALLBACK"]
         return response
+
+
+class PersonEmailForm(forms.Form):
+    person_email = forms.EmailField()
+
+    def save_email(self):
+        email = self.cleaned_data["person_email"]
+        email_obj, created = PrelaunchContact.objects.get_or_create(
+            person_email=email)
+        email_obj.save()
+        if created:
+            send_contact_email(email, "Person")
+        return
+
+
+class ShopEmailForm(forms.Form):
+    shop_email = forms.EmailField()
+
+    def save_email(self):
+        email = self.cleaned_data["shop_email"]
+        email_obj, created = PrelaunchContact.objects.get_or_create(
+            shop_email=email)
+        email_obj.save()
+        if created:
+            send_contact_email(email, "Merchant")
+        return

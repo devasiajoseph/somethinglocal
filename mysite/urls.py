@@ -46,6 +46,11 @@ urlpatterns = patterns('',
     url(r'^password/reset/submit/password$',
         'app.views.password_reset_submit_password',
         name='password_reset_submit_password'),
+    #email submit
+    url(r'^person/email/submit', 'app.views.person_email_submit',
+        name='person_email_submit'),
+    url(r'^shop/email/submit', 'app.views.shop_email_submit',
+        name='shop_email_submit'),
     #test url
     url(r'^test$', 'app.views.test', name='test'),
 )

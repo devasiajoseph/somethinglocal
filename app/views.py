@@ -10,7 +10,8 @@ from django.contrib.auth import logout
 from django.core.urlresolvers import reverse
 import datetime
 from app.models import UserProfile, SocialAuth
-from app.forms import PasswordResetForm, PasswordEmailForm
+from app.forms import PasswordResetForm, PasswordEmailForm,\
+PersonEmailForm, ShopEmailForm
 from django.contrib.auth import authenticate, login
 
 
@@ -245,6 +246,36 @@ def password_reset_submit_password(request):
         response["errors"] = form.errors
 
     return HttpResponse(simplejson.dumps(response))
+
+
+def person_email_submit(request):
+    if not request.POST:
+        return render_to_response("index.html",
+                              context_instance=RequestContext(request))
+    form = PersonEmailForm(request.POST)
+    if form.is_valid():
+        form.save_email()
+        return render_to_response("local.html",
+                              context_instance=RequestContext(request))
+    else:
+        return render_to_response("index.html",
+                              context_instance=RequestContext(
+                request, {"error": dict(form.errors.items())}))
+
+
+def shop_email_submit(request):
+    if not request.POST:
+        return render_to_response("index.html",
+                              context_instance=RequestContext(request))
+    form = ShopEmailForm(request.POST)
+    if form.is_valid():
+        form.save_email()
+        return render_to_response("local.html",
+                              context_instance=RequestContext(request))
+    else:
+        return render_to_response("index.html",
+                              context_instance=RequestContext(
+                request, {"error": dict(form.errors.items())}))
 
 
 def test(request):

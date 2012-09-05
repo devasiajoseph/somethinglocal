@@ -35,12 +35,20 @@
                 Get early access and pleasantly infrequent messages by email, Twitter and Facebook.                
             </div>
             <div id="people">
+	      <form action="/person/email/submit" method="post">
                 <div class="form-line">
-                    <input type="text" name="email" id="email" placeholder="Your email address...">
+                    <input type="text" name="person_email" id="person_email" placeholder="Your email address...">
+		    {%if error.person_email%}
+		    <div style="color:red;">
+		    {{error.person_email}}
+		    </div>
+		    {%endif%}
                 </div>
                 <div class="form-line">
                     <input type="submit" value="Tell me when you launch!">
                 </div>
+		{%csrf_token%}
+	      </form>
             </div>
             <div id="merchants">
                 <div class="title">
@@ -49,12 +57,20 @@
                  <div class="info merchant-info">
                     <strong>Contact us to learn how to set up your online store front for free!</strong>
                 </div>
+		 <form action="/shop/email/submit" method="post">
                 <div class="form-line">
-                    <input type="text" name="email" id="email" placeholder="Your shop's email address...">
+                    <input type="text" name="shop_email" id="shop_email" placeholder="Your shop's email address...">
+		    {%if error.shop_email%}
+		    <div style="color:red;">
+		    {{error.shop_email}}
+		    </div>
+		    {%endif%}
                 </div>
                 <div class="form-line">
                     <input type="submit" value="Contact me with more information">
                 </div>
+		{%csrf_token%}
+		</form>
             </div>
             <div class="social">
                 Connect with us<br />
