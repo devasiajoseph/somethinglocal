@@ -10,7 +10,9 @@ if 'devasia' in os.getcwd():
     DEBUG = True
 else:
     LOCALHOST = False
-    DEBUG = True
+    DEBUG = False
+
+print DEBUG
 TEMPLATE_DEBUG = DEBUG
 
 # Determine if we are running in the test environment.
@@ -21,9 +23,6 @@ if len(manage_command) != 0:
     if command < len(sys.argv):
         TEST = sys.argv[command] == "test"
 
-
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
