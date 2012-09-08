@@ -16,7 +16,7 @@ def restart_supervisor():
 
 def remote_source_update():
     with cd(production_project_path):
-        run("sudo git pull")
+        sudo("git pull")
 
 
 def push_code():
