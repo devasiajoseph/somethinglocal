@@ -12,7 +12,6 @@ else:
     LOCALHOST = False
     DEBUG = False
 
-print DEBUG
 TEMPLATE_DEBUG = DEBUG
 
 # Determine if we are running in the test environment.
@@ -74,7 +73,7 @@ MEDIA_ROOT = ''
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = 'http://somethingloc.al/static/'
+MEDIA_URL = '/static/'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files

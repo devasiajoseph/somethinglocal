@@ -97,6 +97,9 @@ body{
     background: url(../img/bg.png);
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+body.four-oh-four{
+    background: url(../img/bg-404.png);
+}
 div.container{
     width:800px;
     margin:0 auto;
@@ -228,6 +231,38 @@ div.share-links{
     text-align: center;
     width: 367px;
     margin:15px auto;
+}
+
+.copy-404 h1{
+    color: #a7aeb1;
+    font-size:84px;    
+    margin-left:40px;
+}
+.copy-404 p{
+    width: 420px;
+    margin:0 auto;
+    text-align: center;
+    font: bold 24px/32px "Helvetica Neue", Helvetica, Arial, sans-serif;
+    border: 1px dashed #333;
+    border-left:none;
+    border-right:none;
+    padding:15px 0; 
+    color:#40454d;
+}
+
+.copy-404 p small{
+    font: normal 18px/32px "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.copy-404 p small a{
+    color:#65a8a6;
+}
+.shadow{
+    text-shadow: 0px 1px 0px #fff;
+    filter: dropshadow(color=#fff, offx=0, offy=1);
+}
+.social-404{
+    top:10px;
 }
 
 /* ==========================================================================
