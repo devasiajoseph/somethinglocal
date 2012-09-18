@@ -1,7 +1,6 @@
-# Django settings for quickstart project.
 import os
 import sys
-# Django settings for mysite project.
+from secret_settings import *
 
 PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
 #define your own rule to check whether dev or production
@@ -11,6 +10,17 @@ if 'devasia' in os.getcwd():
 else:
     LOCALHOST = False
     DEBUG = False
+
+#define stripe payment env
+STRIPE_TEST_ENVIRONMENT = True
+if STRIPE_TEST_ENVIRONMENT:
+    STRIPE_SECRET_KEY = STRIPE_TEST_SECRET_KEY
+    STRIPE_PUBLISHABLE_KEY = STRIPE_TEST_PUBLISHABLE_KEY
+    STRIPE_CLIENT_ID = STRIPE_TEST_CLIENT_ID
+else:
+    STRIPE_SECRET_KEY = STRIPE_LIVE_SECRET_KEY
+    STRIPE_PUBLISHABLE_KEY = STRIPE_LIVE_PUBLISHABLE_KEY
+    STRIPE_CLIENT_ID = STRIPE_LIVE_CLIENT_ID
 
 TEMPLATE_DEBUG = DEBUG
 
@@ -196,33 +206,10 @@ SITE_URL = "http://somethingloc.al/"
 AUTH_PROFILE_MODULE = 'app.UserProfile'
 EMAIL_USE_TLS = True  # True for gmail testing
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'info@somethingloc.al'
-EMAIL_HOST_PASSWORD = 'cakeroof'
+# EMAIL_HOST_USER = <check secret settings file>
+# EMAIL_HOST_PASSWORD = <check secret settings file>
 EMAIL_PORT = 587  # 587 for gmail server
 EMAIL_VERIFICATION_REQUIRED = False
-FBAPP_ID = ""
-FBAPP_SECRET = ""
-FBAPP_REDIRECT_URI = "http://yoursite/fbauth"
-
-
-FBAPP_AUTH_REDIRECT = "https://www.facebook.com/dialog/oauth?\
-client_id=%(FBAPP_ID)s&\
-redirect_uri=%(FBAPP_REDIRECT_URI)s&\
-&state=%(CSRF_TOKEN)s"
-
-FBAPP_ACCESS_TOKEN_URL = "https://graph.facebook.com/oauth/access_token?\
-client_id=%(FBAPP_ID)s\
-&redirect_uri=%(FBAPP_REDIRECT_URI)s&\
-client_secret=%(FBAPP_SECRET)s&\
-code=%(FB_CODE)s"
-
-TWITTER_KEY = ''
-TWITTER_SECRET = ''
-
-GOOGLE_AUTH_REDIRECT = "https://accounts.google.com/o/oauth2/auth?redirect_uri=https://localhost/oauth2callback&response_type=code&client_id=56279468910.apps.googleusercontent.com&approval_prompt=force&scope=https://Fwww.googleapis.com/Fauth/blogger&access_type=offline"
-
-GOOGLE_SECRET = ""
-GOOGLE_CLIENT_ID = ""
 
 if LOCALHOST:
     SITE_URL = "http://localhost:8000"

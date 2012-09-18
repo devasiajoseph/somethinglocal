@@ -9,6 +9,7 @@ from django.db.models import Q
 from app.models import UserProfile, PrelaunchContact
 from app.utilities import reply_object, create_key, send_password_reset_email,\
 send_contact_email
+import stripe
 
 attrs_dict = {'class': 'input-xlarge'}
 
@@ -252,3 +253,23 @@ class ShopEmailForm(forms.Form):
         if created:
             send_contact_email(email, "Merchant")
         return
+
+
+class StripePaymentForm(forms.Form):
+    stripeToken = forms.CharField()
+    product_id = forms.IntegerField(required=False)
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        super(StripePaymentForm, self).__init__(*args, **kwargs)
+
+    def charge(self):
+        token = self.cleaned_data["stripeToken"]
+        charge = stripe.Charge.create(
+            amount=1000,
+            currency="usd",
+            card=token,
+            description="payinguser@example.com"
+            )
+        print charge

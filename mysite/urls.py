@@ -53,4 +53,8 @@ urlpatterns = patterns('',
         name='shop_email_submit'),
     #test url
     url(r'^test$', 'app.views.test', name='test'),
+    #stripe
+    url(r'^stripe/form$', 'app.views.stripe_form', name='stripe_form'),
+    url(r'^stripe/oauth/callback$', 'app.views.stripe_oauth_callback',
+        name='stripe_oauth_callback'),
 )

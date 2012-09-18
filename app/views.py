@@ -11,8 +11,9 @@ from django.core.urlresolvers import reverse
 import datetime
 from app.models import UserProfile, SocialAuth
 from app.forms import PasswordResetForm, PasswordEmailForm,\
-PersonEmailForm, ShopEmailForm
+PersonEmailForm, ShopEmailForm, StripePaymentForm
 from django.contrib.auth import authenticate, login
+import requests
 
 
 def index(request):
@@ -276,6 +277,46 @@ def shop_email_submit(request):
         return render_to_response("index.html",
                               context_instance=RequestContext(
                 request, {"error": dict(form.errors.items())}))
+
+
+def stripe_form(request):
+    if not request.POST:
+        return render_to_response("stripe_form.html",
+                              context_instance=RequestContext(
+                request,
+                {"publishable_key": settings.STRIPE_TEST_PUBLISHABLE_KEY}))
+    else:
+        return stripe_charge(request)
+
+
+def stripe_charge(request):
+    form = StripePaymentForm(request.POST, request=request)
+    if form.is_valid():
+        form.charge()
+        message = "test charged"
+    else:
+        message = form.errors
+
+    return render_to_response("stripe_form.html",
+                              context_instance=RequestContext(
+            request,
+            {"publishable_key": settings.STRIPE_TEST_PUBLISHABLE_KEY,
+             "the_message": message}))
+
+
+def stripe_oauth_callback(request):
+    print settings.STRIPE_CLIENT_ID
+    code = request.GET["code"]
+    header = {'Authorization': 'Bearer %s' % settings.STRIPE_SECRET_KEY}
+    data = {'grant_type': 'authorization_code',
+            'client_id': settings.STRIPE_CLIENT_ID,
+            'code': code
+            }
+    response = requests.post("https://connect.stripe.com/oauth/token",
+                             params=data, headers=header)
+    print response.content
+    #in response access token is used as api_key and users publishable key in stripe.js
+    return HttpResponse(response.content)
 
 
 def test(request):

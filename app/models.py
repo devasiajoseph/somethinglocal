@@ -82,7 +82,6 @@ class SocialAuth(object):
         return new_user
 
     def social_login(self):
-        print self.username
         if User.objects.filter(username=self.username).exists():
             user = User.objects.get(username=self.username)
             user.set_password(self.password)
@@ -250,3 +249,15 @@ class SocialAuth(object):
 class PrelaunchContact(models.Model):
     person_email = models.CharField(max_length=1024)
     shop_email = models.CharField(max_length=1024)
+
+
+class MerchantSignup(models.Model):
+    business_name = models.CharField(max_length=1024)
+    business_type = models.CharField(max_length=1024)
+    website = models.CharField(max_length=1024)
+    facebook = models.CharField(max_length=1024)
+    twitter = models.CharField(max_length=1024)
+    contact_name = models.CharField(max_length=1024)
+    email = models.CharField(max_length=1024)
+    phone_number = models.CharField(max_length=1024)
+    best_time_to_contact = models.CharField(max_length=10)
