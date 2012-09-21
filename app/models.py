@@ -254,7 +254,7 @@ class PrelaunchContact(models.Model):
 class MerchantSignup(models.Model):
     business_name = models.CharField(max_length=1024)
     business_type = models.CharField(max_length=1024)
-    physical_address = models.CharField(max_length=1024)
+    address = models.CharField(max_length=1024)
     website = models.CharField(max_length=1024)
     facebook = models.CharField(max_length=1024)
     twitter = models.CharField(max_length=1024)

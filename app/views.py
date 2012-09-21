@@ -330,12 +330,15 @@ def merchant_signup(request):
     if request.POST:
         form = MerchantSignupForm(request.POST)
         if form.is_valid():
-            form.save_merchant()
-            render_page = "local.html"
+            try:
+                form.save_merchant()
+                render_page = "local.html"
+            except:
+                render_page = "500.html"
         else:
             error = simplejson.loads(simplejson.dumps(form.errors))
     else:
-        form = MerchantSignupForm()
+        form = MerchantSignupForm(initial={"best_time_to_contact": "am"})
 
     return render_to_response(render_page,
                               context_instance=RequestContext(

@@ -294,7 +294,7 @@ class MerchantSignupForm(forms.Form):
         signup = MerchantSignup.objects.create(
             business_name=self.cleaned_data["business_name"],
             business_type=self.cleaned_data["business_type"],
-            physical_address=self.cleaned_data["physical_address"],
+            address=self.cleaned_data["address"],
             website=self.cleaned_data["website"],
             facebook=self.cleaned_data["facebook"],
             twitter=self.cleaned_data["twitter"],
