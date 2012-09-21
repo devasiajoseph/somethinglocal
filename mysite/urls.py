@@ -57,4 +57,8 @@ urlpatterns = patterns('',
     url(r'^stripe/form$', 'app.views.stripe_form', name='stripe_form'),
     url(r'^stripe/oauth/callback$', 'app.views.stripe_oauth_callback',
         name='stripe_oauth_callback'),
+    #merchant
+    url(r'^merchant$', 'app.views.merchant_page', name='merchant_page'),
+    url(r'^merchant/signup$', 'app.views.merchant_signup',
+        name='merchant_signup'),
 )

@@ -6,10 +6,11 @@ import requests
 import re
 from facebooksdk import Facebook
 from django.db.models import Q
-from app.models import UserProfile, PrelaunchContact
+from app.models import UserProfile, PrelaunchContact, MerchantSignup
 from app.utilities import reply_object, create_key, send_password_reset_email,\
 send_contact_email
 import stripe
+from django.forms.widgets import RadioSelect
 
 attrs_dict = {'class': 'input-xlarge'}
 
@@ -273,3 +274,33 @@ class StripePaymentForm(forms.Form):
             description="payinguser@example.com"
             )
         print charge
+
+
+class MerchantSignupForm(forms.Form):
+    CHOICES = (('am', 'AM',), ('pm', 'PM',), ('anytime', 'Anytime'))
+    business_name = forms.CharField()
+    business_type = forms.CharField()
+    address = forms.CharField()
+    website = forms.CharField(required=False)
+    facebook = forms.CharField(required=False)
+    twitter = forms.CharField(required=False)
+    owner = forms.CharField()
+    email = forms.EmailField()
+    phone = forms.CharField()
+    best_time_to_contact = forms.ChoiceField(widget=forms.RadioSelect,
+                                             choices=CHOICES)
+
+    def save_merchant(self):
+        signup = MerchantSignup.objects.create(
+            business_name=self.cleaned_data["business_name"],
+            business_type=self.cleaned_data["business_type"],
+            physical_address=self.cleaned_data["physical_address"],
+            website=self.cleaned_data["website"],
+            facebook=self.cleaned_data["facebook"],
+            twitter=self.cleaned_data["twitter"],
+            owner=self.cleaned_data["owner"],
+            email=self.cleaned_data["email"],
+            phone=self.cleaned_data["phone"],
+            best_time_to_contact=self.cleaned_data["best_time_to_contact"],
+            )
+        signup.save()

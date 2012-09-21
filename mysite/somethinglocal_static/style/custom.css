@@ -4,4 +4,20 @@
     margin: 0;
     position: relative;
 }
+.form-error{
+    color:red;
+    font: 12px/24px "Helvetica Neue",Helvetica,Arial,sans-serif;
+    margin-left: 10px;
+    padding-left: 10px;
+}
 
+.input-holder ul li{
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+.input-holder ul{
+    padding: 0px;
+    margin: 0px;
+}

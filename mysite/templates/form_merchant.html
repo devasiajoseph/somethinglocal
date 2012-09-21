@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Somethingloc.al</title>
+        <meta name="description" content="It's your city. It's your registry.">
+        <meta name="viewport" content="width=device-width">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" href="{{MEDIA_URL}}css/normalize.css">
+        <link rel="stylesheet" href="{{MEDIA_URL}}css/main.css">
+        <link rel="stylesheet" href="{{MEDIA_URL}}style/custom.css">
+        <link href='http://fonts.googleapis.com/css?family=Lobster&text=Connect%20with%20us' rel='stylesheet' type='text/css'>
+        <script src="{{MEDIA_URL}}js/vendor/modernizr-2.6.1.min.js"></script>
+    </head>
+    <body class="vendorform">
+      {% load app_extras %}
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+        <div class="container shadow">
+            <header>
+                <div id="logo">
+                    <a href="/"><img src="{{MEDIA_URL}}img/logo.png" alt="SomethingLoc.al - It's your city. It's your registry."></a>
+                </div>                
+            </header>           
+            <div class="social">
+                Connect with us<br />
+                <a href="https://www.facebook.com/pages/Something-Local/275362079244066"><img src="{{MEDIA_URL}}img/fb.png" alt=""></a>
+                <a href="http://www.twitter.com/something_local"><img src="{{MEDIA_URL}}img/twitter.png" alt=""></a>
+            </div>
+            <div class="form-header">
+                <h2>Vendor Sign Up</h2>
+            </div>
+	    <form method="post">
+	      {%csrf_token%}
+            <div class="form cleafix">
+	      {%if error%}
+                <div class="form-message error">
+                    <strong>Did you forget something?</strong><br />
+                    Looks like you may have missed one or more required fields for signing up with us.
+                </div>
+               {%endif%}
+                <div class="form-column">
+                    <label for="business"><span class="mandatory">*</span> Business Name</label>
+                    <div class="input-holder">
+                        {{form.business_name}}
+			{{error.business_name|form_error|safe}}
+                    </div>
+                    <label for="business"><span class="mandatory">*</span> Business Type: (services or goods offered)</label>
+                    <div class="input-holder">
+                        {{form.business_type}}
+			{{error.business_type|form_error|safe}}
+                    </div>
+                    <label for="business"><span class="mandatory">*</span> Physical Address:</label>
+                    <div class="input-holder">
+                        {{form.address}}
+			{{error.address|form_error|safe}}
+                    </div>
+                    <label for="business"> Website:</label>
+                    <div class="input-holder">
+                        {{form.website}}
+			{{error.website|form_error|safe}}
+                    </div>
+                    <label for="business"> Facebook:</label>
+                    <div class="input-holder">
+                        {{form.facebook}}
+			{{error.facebook|form_error|safe}}
+                    </div>
+                    <label for="twitter"> Twitter:</label>
+                    <div class="input-holder">
+                        {{form.twitter}}
+			{{error.twitter|form_error|safe}}
+                    </div>
+                </div>
+                <div class="form-column second">
+                    <label for="owner"><span class="mandatory">*</span> Owner/Contact Name:</label>
+                    <div class="input-holder">
+                        {{form.owner}}
+			{{error.owner|form_error|safe}}
+                    </div>
+                    <label for="email"><span class="mandatory">*</span> Contact Email:</label>
+                    <div class="input-holder">
+                        {{form.email}}
+			{{error.email|form_error|safe}}
+                    </div>
+                    <label for="phone"><span class="mandatory">*</span>  Contact Phone Number:</label>
+                    <div class="input-holder">
+                        {{form.phone}}
+			{{error.phone|form_error|safe}}
+                    </div>
+                    <label for="phone" class="best-time">Best time to contact:</label>
+                    <div class="input-holder fl lpad10">
+		        {{form.best_time_to_contact}}
+                    </div>
+                    <div class="input-holder">
+                        <input type="submit" value="Open my Something Local Shop">
+                    </div>
+                </div>
+            </div>
+	    </form>
+        </div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="{{MEDIA_URL}}js/vendor/jquery-1.8.0.min.js"><\/script>')</script>
+        <script src="{{MEDIA_URL}}js/plugins.js"></script>
+        <script src="{{MEDIA_URL}}js/main.js"></script>
+    </body>
+</html>

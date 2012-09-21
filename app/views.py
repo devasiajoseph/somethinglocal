@@ -11,7 +11,7 @@ from django.core.urlresolvers import reverse
 import datetime
 from app.models import UserProfile, SocialAuth
 from app.forms import PasswordResetForm, PasswordEmailForm,\
-PersonEmailForm, ShopEmailForm, StripePaymentForm
+PersonEmailForm, ShopEmailForm, StripePaymentForm, MerchantSignupForm
 from django.contrib.auth import authenticate, login
 import requests
 
@@ -317,6 +317,31 @@ def stripe_oauth_callback(request):
     print response.content
     #in response access token is used as api_key and users publishable key in stripe.js
     return HttpResponse(response.content)
+
+
+def merchant_page(request):
+    return render_to_response("merchant.html",
+                              context_instance=RequestContext(request))
+
+
+def merchant_signup(request):
+    error = None
+    render_page = "form_merchant.html"
+    if request.POST:
+        form = MerchantSignupForm(request.POST)
+        if form.is_valid():
+            form.save_merchant()
+            render_page = "local.html"
+        else:
+            error = simplejson.loads(simplejson.dumps(form.errors))
+    else:
+        form = MerchantSignupForm()
+
+    return render_to_response(render_page,
+                              context_instance=RequestContext(
+            request,
+            {"error": error,
+             "form": form}))
 
 
 def test(request):
