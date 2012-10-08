@@ -17,6 +17,7 @@ import requests
 
 
 def index(request):
+    return HttpResponseRedirect("http://beta.somethingloc.al")
     return render_to_response("index.html",
                               context_instance=RequestContext(request))
 
